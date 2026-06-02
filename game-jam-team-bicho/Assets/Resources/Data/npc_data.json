@@ -1,5 +1,232 @@
 {
   "npcs": [
-    { "id": "dorothy",    "nombre": "Dorothy",     "spritePath": "Sprites/NPCs/dorothy" }
+    {
+      "id": "dorothy",
+      "nombre": "Dorothy",
+      "defaultEstado": "neutral",
+      "sprites": [
+        {
+          "estado": "happy",
+          "path": "Sprites/dorothy/happy"
+        },
+        {
+          "estado": "neutral",
+          "path": "Sprites/dorothy/neutral"
+        },
+        {
+          "estado": "sad",
+          "path": "Sprites/dorothy/sad"
+        }
+      ]
+    },
+    {
+      "id": "evil_dorothy",
+      "nombre": "Evil Dorothy",
+      "defaultEstado": "neutral",
+      "sprites": [
+        {
+          "estado": "happy",
+          "path": "Sprites/evil_dorothy/happy"
+        },
+        {
+          "estado": "neutral",
+          "path": "Sprites/evil_dorothy/neutral"
+        },
+        {
+          "estado": "sad",
+          "path": "Sprites/evil_dorothy/sad"
+        }
+      ]
+    },
+    {
+      "id": "annabel_con",
+      "nombre": "Annabel",
+      "defaultEstado": "neutral",
+      "sprites": [
+        {
+          "estado": "afflicted",
+          "path": "Sprites/Annabel_con/afflicted"
+        },
+        {
+          "estado": "happy",
+          "path": "Sprites/Annabel_con/happy"
+        },
+        {
+          "estado": "mad",
+          "path": "Sprites/Annabel_con/mad"
+        },
+        {
+          "estado": "neutral",
+          "path": "Sprites/Annabel_con/neutral"
+        }
+      ]
+    },
+    {
+      "id": "annabel_sin",
+      "nombre": "Annabel",
+      "defaultEstado": "neutral",
+      "sprites": [
+        {
+          "estado": "afflicted",
+          "path": "Sprites/annabel_sin/afflicted"
+        },
+        {
+          "estado": "happy",
+          "path": "Sprites/annabel_sin/happy"
+        },
+        {
+          "estado": "mad",
+          "path": "Sprites/annabel_sin/mad"
+        },
+        {
+          "estado": "neutral",
+          "path": "Sprites/annabel_sin/neutral"
+        }
+      ]
+    },
+    {
+      "id": "arthur",
+      "nombre": "Arthur",
+      "defaultEstado": "neutral",
+      "sprites": [
+        {
+          "estado": "happy",
+          "path": "Sprites/arthur/happy"
+        },
+        {
+          "estado": "mad",
+          "path": "Sprites/arthur/mad"
+        },
+        {
+          "estado": "neutral",
+          "path": "Sprites/arthur/neutral"
+        }
+      ]
+    },
+    {
+      "id": "bernard",
+      "nombre": "Bernard",
+      "defaultEstado": "neutral",
+      "sprites": [
+        {
+          "estado": "angry",
+          "path": "Sprites/bernard/angry"
+        },
+        {
+          "estado": "concerned",
+          "path": "Sprites/bernard/concerned"
+        },
+        {
+          "estado": "happy",
+          "path": "Sprites/bernard/happy"
+        },
+        {
+          "estado": "neutral",
+          "path": "Sprites/bernard/neutral"
+        }
+      ]
+    },
+    {
+      "id": "campesino",
+      "nombre": "Campesino",
+      "defaultEstado": "neutral",
+      "sprites": [
+        {
+          "estado": "afflicted",
+          "path": "Sprites/campesino/afflicted"
+        },
+        {
+          "estado": "neutral",
+          "path": "Sprites/campesino/neutral"
+        }
+      ]
+    },
+    {
+      "id": "father",
+      "nombre": "Father",
+      "defaultEstado": "neutral",
+      "sprites": [
+        {
+          "estado": "angry",
+          "path": "Sprites/father/angry"
+        },
+        {
+          "estado": "happy",
+          "path": "Sprites/father/happy"
+        },
+        {
+          "estado": "neutral",
+          "path": "Sprites/father/neutral"
+        }
+      ]
+    },
+    {
+      "id": "father_daughter",
+      "nombre": "Father & Daughter",
+      "defaultEstado": "neutral",
+      "sprites": [
+        {
+          "estado": "angry",
+          "path": "Sprites/father_daughter/angry"
+        },
+        {
+          "estado": "happy",
+          "path": "Sprites/father_daughter/happy"
+        },
+        {
+          "estado": "neutral",
+          "path": "Sprites/father_daughter/neutral"
+        }
+      ]
+    },
+    {
+      "id": "king",
+      "nombre": "King",
+      "defaultEstado": "neutral",
+      "sprites": [
+        {
+          "estado": "annoyed",
+          "path": "Sprites/king/annoyed"
+        },
+        {
+          "estado": "happy",
+          "path": "Sprites/king/happy"
+        },
+        {
+          "estado": "neutral",
+          "path": "Sprites/king/neutral"
+        }
+      ]
+    },
+    {
+      "id": "philip",
+      "nombre": "Philip",
+      "defaultEstado": "neutral",
+      "sprites": [
+        {
+          "estado": "happy",
+          "path": "Sprites/philip/happy"
+        },
+        {
+          "estado": "neutral",
+          "path": "Sprites/philip/neutral"
+        },
+        {
+          "estado": "sad",
+          "path": "Sprites/philip/sad"
+        }
+      ]
+    },
+    {
+      "id": "preacher",
+      "nombre": "Preacher",
+      "defaultEstado": "default",
+      "sprites": [
+        {
+          "estado": "default",
+          "path": "Sprites/preacher"
+        }
+      ]
+    }
   ]
 }

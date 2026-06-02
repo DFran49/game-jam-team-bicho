@@ -2,7 +2,7 @@ using Ink.Runtime;
 
 public class InkChoice
 {
-    public int Index;
+    public int Index { get; set; }  // set para poder actualizarlo en el momento del click
     public string DisplayText;
     public ChoiceType Type;
 

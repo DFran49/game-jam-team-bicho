@@ -20,6 +20,16 @@ public class ChoiceButton : MonoBehaviour
 
     private void OnClick()
     {
+        // Resolver el índice actual en Ink por texto en el momento del click,
+        // ya que los índices cambian conforme se consumen opciones con *.
+        int resolvedIndex = DialogueManager.Instance.ResolveChoiceIndex(ChoiceData.DisplayText, ChoiceData.Type);
+        if (resolvedIndex < 0)
+        {
+            Debug.LogWarning($"[ChoiceButton] No se encontró la choice '{ChoiceData.DisplayText}' en Ink.");
+            return;
+        }
+        // Actualizar el índice antes de enviarlo
+        ChoiceData.Index = resolvedIndex;
         UIManager.Instance.OnChoiceSelected(ChoiceData);
     }
 

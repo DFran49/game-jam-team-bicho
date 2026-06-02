@@ -7,12 +7,13 @@ public class DialogueManager : MonoBehaviour
     public static DialogueManager Instance;
  
     [Header("Ink Assets (uno por día)")]
-    public TextAsset[] inkDays; // Arrastra Day1, Day2... en orden
+    public TextAsset[] inkDays;
  
     private Story _story;
     private int _currentDay = 0;
  
-    // Eventos que escucha UIManager
+    private static Dictionary<string, object> _crossDayVars = new();
+ 
     public System.Action<string> OnNewText;
     public System.Action<List<InkChoice>> OnChoicesReady;
     public System.Action OnDayEnd;
@@ -27,10 +28,16 @@ public class DialogueManager : MonoBehaviour
     {
         _currentDay = dayIndex;
         _story = new Story(inkDays[dayIndex].text);
+ 
+        foreach (var kv in _crossDayVars)
+        {
+            try { _story.variablesState[kv.Key] = kv.Value; }
+            catch { }
+        }
+ 
         Continue();
     }
  
-    // Avanza la historia y procesa lo que venga
     public void Continue()
     {
         if (_story.canContinue)
@@ -38,7 +45,6 @@ public class DialogueManager : MonoBehaviour
             string text = _story.Continue();
             ProcessTags(_story.currentTags);
  
-            // Texto vacío (nodos de control) → avanza solo
             if (string.IsNullOrWhiteSpace(text))
             {
                 Continue();
@@ -46,14 +52,9 @@ public class DialogueManager : MonoBehaviour
             }
  
             OnNewText?.Invoke(text.Trim());
- 
-            // ← CLAVE: solo evaluar choices si NO hay texto que mostrar primero.
-            // Con el "return" aquí, el jugador verá el texto y pulsará Continuar
-            // para que entonces se evalúe el estado siguiente.
             return;
         }
  
-        // Solo llegamos aquí si canContinue era false desde el principio
         if (_story.currentChoices.Count > 0)
             BuildAndSendChoices();
         else
@@ -65,13 +66,33 @@ public class DialogueManager : MonoBehaviour
         _story.ChooseChoiceIndex(index);
         Continue();
     }
+
+    // Resuelve el índice actual en Ink buscando por texto y prefijo de tipo.
+    // Necesario porque los índices cambian conforme se consumen opciones *.
+    public int ResolveChoiceIndex(string displayText, ChoiceType type)
+    {
+        string prefix = type switch
+        {
+            ChoiceType.Question => "QUEST: ",
+            ChoiceType.Document => "DOC: ",
+            ChoiceType.Decision => "DEC: ",
+            _ => ""
+        };
+        string fullText = prefix + displayText;
+
+        for (int i = 0; i < _story.currentChoices.Count; i++)
+        {
+            if (_story.currentChoices[i].text == fullText)
+                return i;
+        }
+        return -1;
+    }
  
     private void BuildAndSendChoices()
     {
         var choices = new List<InkChoice>();
         foreach (var c in _story.currentChoices)
             choices.Add(new InkChoice(c));
- 
         OnChoicesReady?.Invoke(choices);
     }
  
@@ -82,7 +103,7 @@ public class DialogueManager : MonoBehaviour
             string[] parts = tag.Split(':');
             if (parts.Length < 2) continue;
  
-            string key = parts[0].Trim().ToUpper();
+            string key   = parts[0].Trim().ToUpper();
             string value = parts[1].Trim().ToLower();
  
             switch (key)
@@ -100,8 +121,24 @@ public class DialogueManager : MonoBehaviour
                 case "DAY_END":
                     OnDayEnd?.Invoke();
                     break;
+                case "SAVE_VAR":
+                    SaveCrossDayVar(value.Trim());
+                    break;
             }
         }
     }
-}
  
+    private void SaveCrossDayVar(string varName)
+    {
+        try
+        {
+            object val = _story.variablesState[varName];
+            _crossDayVars[varName] = val;
+            Debug.Log($"[DialogueManager] SAVE_VAR: {varName} = {val}");
+        }
+        catch
+        {
+            Debug.LogWarning($"[DialogueManager] SAVE_VAR: variable '{varName}' no encontrada.");
+        }
+    }
+}
